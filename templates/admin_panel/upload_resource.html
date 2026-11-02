@@ -1,0 +1,27 @@
+{% extends 'admin_panel/base.html' %}
+
+{% block content %}
+<div class="card">
+    <h2>Upload Resource</h2>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="text" name="title" placeholder="Title" required><br><br>
+
+        <select name="category" required>
+            <option value="">Select Category</option>
+            <option value="aptitude">Aptitude</option>
+            <option value="technical">Technical</option>
+            <option value="coding">Coding</option>
+            <option value="interview">Interview</option>
+        </select><br><br>
+
+        <textarea name="description" placeholder="Description"></textarea><br><br>
+
+        <input type="file" name="file"><br><br>
+        <input type="url" name="link" placeholder="External link"><br><br>
+
+        <button type="submit">Upload</button>
+    </form>
+</div>
+{% endblock %}

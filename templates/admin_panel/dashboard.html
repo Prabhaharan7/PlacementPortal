@@ -1,0 +1,198 @@
+{% extends 'base_dashboard.html' %}
+
+{% block title %}Admin Dashboard | Placement Portal{% endblock %}
+{% block header %}Staff Overview{% endblock %}
+
+{% block content %}
+<style>
+    /* Stats Cards - Shared Style but different data */
+    .stat-card {
+        color: white;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .stat-card.purple {
+        background: linear-gradient(135deg, #6366f1 0%, #4338ca 100%);
+    }
+
+    .stat-card.blue {
+        background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    }
+
+    .stat-card.green {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    }
+
+    .stat-icon {
+        font-size: 3rem;
+        opacity: 0.2;
+        position: absolute;
+        right: 20px;
+        bottom: 20px;
+    }
+
+    .stat-value {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+
+    .stat-label {
+        font-size: 0.9rem;
+        font-weight: 500;
+        opacity: 0.9;
+    }
+
+    /* Student Table */
+    .table-container {
+        grid-column: span 3;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+    }
+
+    th {
+        text-align: left;
+        padding: 15px;
+        font-weight: 600;
+        color: #6b7280;
+        border-bottom: 1px solid #f3f4f6;
+    }
+
+    td {
+        padding: 15px;
+        border-bottom: 1px solid #f3f4f6;
+        vertical-align: middle;
+    }
+
+    .status-badge {
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+
+    .status-active {
+        background: #d1fae5;
+        color: #059669;
+    }
+
+    .status-lagging {
+        background: #fee2e2;
+        color: #b91c1c;
+    }
+
+    .student-info {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .avatar {
+        width: 35px;
+        height: 35px;
+        background: #e0e7ff;
+        color: #4f46e5;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        font-size: 0.9rem;
+    }
+
+    .progress-bar-bg {
+        width: 120px;
+        height: 6px;
+        background: #e5e7eb;
+        border-radius: 3px;
+    }
+
+    .progress-bar-fill {
+        height: 100%;
+        border-radius: 3px;
+        background: #4f46e5;
+    }
+</style>
+
+<!-- Stats Grid -->
+<div class="grid-4" style="margin-bottom: 30px; grid-template-columns: repeat(3, 1fr);">
+    <div class="card stat-card purple">
+        <div class="stat-label">Total Students</div>
+        <div class="stat-value">{{ stats.total_students }}</div>
+        <i class="ri-user-follow-line stat-icon"></i>
+    </div>
+
+    <div class="card stat-card blue">
+        <div class="stat-label">Active Learners</div>
+        <div class="stat-value">{{ stats.active_learners }}</div>
+        <i class="ri-pulse-line stat-icon"></i>
+    </div>
+
+    <div class="card stat-card green">
+        <div class="stat-label">Avg. Readiness</div>
+        <div class="stat-value">{{ stats.avg_readiness }}%</div>
+        <i class="ri-bar-chart-grouped-line stat-icon"></i>
+    </div>
+</div>
+
+<!-- Student Progress Table -->
+<div class="card table-container">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h3>Student Progress Monitoring</h3>
+        <button
+            style="padding: 8px 16px; background: #4f46e5; color: white; border: none; border-radius: 6px; cursor: pointer;">
+            Export Report
+        </button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Department</th>
+                <th>Overall Progress</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr>
+                <td>
+                    <div class="student-info">
+                        <div class="avatar">{{ student.name.0 }}</div>
+                        <div>{{ student.name }}</div>
+                    </div>
+                </td>
+                <td>{{ student.dept }}</td>
+                <td>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <div class="progress-bar-bg">
+                            <div class="progress-bar-fill"
+                                style="width: {{ student.progress }}%; background: {% if student.progress < 40 %}#ef4444{% elif student.progress < 70 %}#f59e0b{% else %}#10b981{% endif %};">
+                            </div>
+                        </div>
+                        <span style="font-size: 0.9rem;">{{ student.progress }}%</span>
+                    </div>
+                </td>
+                <td>
+                    {% if student.progress >= 70 %}
+                    <span class="status-badge status-active">On Track</span>
+                    {% else %}
+                    <span class="status-badge status-lagging">Needs Attention</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="#" style="color: #4f46e5; font-weight: 500;">View Details</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

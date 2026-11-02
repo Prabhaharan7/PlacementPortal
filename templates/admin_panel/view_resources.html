@@ -1,0 +1,15 @@
+{% extends 'admin_panel/base.html' %}
+
+{% block content %}
+<div class="card">
+    <h2>Uploaded Resources</h2>
+
+    <ul>
+        {% for r in resources %}
+            <li>
+                <strong>{{ r.title }}</strong> ({{ r.get_category_display }})
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

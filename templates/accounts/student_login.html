@@ -1,0 +1,429 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #805AD5;
+            /* Purple */
+            --accent-color: #6B46C1;
+            --text-main: #2D3748;
+            --text-muted: #718096;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+            background: #fff;
+        }
+
+        /* LEFT SIDE: Form */
+        .login-section {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 10%;
+            background: var(--white);
+            position: relative;
+            z-index: 2;
+        }
+
+        .header h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 15px;
+            background: -webkit-linear-gradient(#805AD5, #553C9A);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 45px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-main);
+            font-size: 0.9rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #E2E8F0;
+            border-radius: 12px;
+            font-size: 1rem;
+            background: #F7FAFC;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-bg);
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(128, 90, 213, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 35px;
+            font-size: 0.95rem;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        .remember-me input {
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary-bg);
+        }
+
+        .forgot-password {
+            color: var(--primary-bg);
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .forgot-password:hover {
+            color: var(--accent-color);
+            text-decoration: underline;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #805AD5 0%, #6B46C1 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(107, 70, 193, 0.4);
+        }
+
+        .btn-submit::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .btn-submit:hover::after {
+            left: 100%;
+        }
+
+        .google-btn {
+            width: 100%;
+            padding: 15px;
+            margin-top: 20px;
+            background: white;
+            border: 1px solid #E2E8F0;
+            border-radius: 8px;
+            font-weight: 500;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .google-btn:hover {
+            background: #F7FAFC;
+        }
+
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        .footer a {
+            color: var(--primary-bg);
+            text-decoration: none;
+            font-weight: 700;
+            transition: 0.2s;
+        }
+
+        .footer a:hover {
+            color: var(--accent-color);
+        }
+
+        /* RIGHT SIDE: Visuals */
+        .visual-section {
+            width: 50%;
+            background: linear-gradient(135deg, #9F7AEA 0%, #805AD5 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .visual-content-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            perspective: 1000px;
+        }
+
+        /* Interactive Floating Elements */
+        .floating-item {
+            position: absolute;
+            font-size: 4rem;
+            color: rgba(255, 255, 255, 0.9);
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.2));
+            transition: transform 0.1s ease-out;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .floating-item:hover {
+            transform: scale(1.2) !important;
+            filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.4));
+        }
+
+        .glass-card {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translate(-50%, -50%) scale(1.02);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .big-icon {
+            font-size: 8rem;
+            margin-bottom: 20px;
+            animation: floatIcon 6s infinite ease-in-out;
+            display: inline-block;
+        }
+
+        @keyframes floatIcon {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .tagline {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 900px) {
+            .visual-section {
+                display: none;
+            }
+
+            .login-section {
+                width: 100%;
+                padding: 40px;
+            }
+        }
+
+        .error-msg {
+            background: #FFF5F5;
+            color: #C53030;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+            border-left: 5px solid #C53030;
+            animation: shake 0.4s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-5px);
+            }
+
+            75% {
+                transform: translateX(5px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Left Side: Login Form -->
+    <div class="login-section">
+        <div class="header">
+            <h1>Welcome back! 👋</h1>
+            <p>Ready to continue your learning journey?</p>
+        </div>
+
+        {% if error %}
+        <div class="error-msg">
+            <span>⚠️</span> {{ error }}
+        </div>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Username / Email</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="••••••••" required>
+            </div>
+
+            <div class="options">
+                <label class="remember-me">
+                    <input type="checkbox" id="remember">
+                    <span>Remember me</span>
+                </label>
+                <a href="#" class="forgot-password">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="btn-submit">Login Account</button>
+
+            <button type="button" class="google-btn">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" width="20">
+                Sign in with Google
+            </button>
+        </form>
+
+        <div class="footer">
+            <p>Admin Access? <a href="{% url 'admin_login' %}">Login Here</a></p>
+            <br>
+            <p>Don't have an account? <a href="{% url 'register' %}">Create New Account</a></p>
+        </div>
+    </div>
+
+    <!-- Right Side: Visuals -->
+    <div class="visual-section" id="visualSection">
+        <div class="visual-content-wrapper" id="parallaxContainer">
+            <!-- Central Glass Card -->
+            <div class="glass-card">
+                <div class="big-icon">🎓</div>
+                <div class="tagline">Success Starts Here</div>
+            </div>
+
+            <!-- Floating Parallax Items -->
+            <div class="floating-item" data-speed="2" style="top: 15%; left: 15%;">📚</div>
+            <div class="floating-item" data-speed="-1" style="top: 20%; right: 20%;">✏️</div>
+            <div class="floating-item" data-speed="4" style="bottom: 25%; left: 10%;">💡</div>
+            <div class="floating-item" data-speed="-3" style="bottom: 20%; right: 15%;">🚀</div>
+            <div class="floating-item" data-speed="1.5" style="top: 50%; left: 85%;">⚛️</div>
+            <div class="floating-item" data-speed="-2.5" style="top: 10%; left: 50%;">🏆</div>
+        </div>
+    </div>
+
+    <script>
+        // Parallax Effect Script
+        const container = document.getElementById('visualSection');
+        const items = document.querySelectorAll('.floating-item');
+
+        container.addEventListener('mousemove', (e) => {
+            const x = (window.innerWidth - e.pageX * 2) / 100;
+            const y = (window.innerHeight - e.pageY * 2) / 100;
+
+            items.forEach(item => {
+                const speed = item.getAttribute('data-speed');
+                const xPos = x * speed;
+                const yPos = y * speed;
+
+                // transform: translate(x, y)
+                item.style.transform = `translate(${xPos}px, ${yPos}px)`;
+            });
+        });
+
+        // Reset on mouse leave
+        container.addEventListener('mouseleave', () => {
+            items.forEach(item => {
+                item.style.transform = `translate(0px, 0px)`;
+            });
+        });
+    </script>
+
+</body>
+
+</html>

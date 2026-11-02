@@ -1,0 +1,68 @@
+PlacementPortal/
+│
+├── venv/                          # Virtual environment
+│
+├── manage.py                      # Django entry point
+│
+├── db.sqlite3                     # Database
+│
+├── placement_portal/              # Project configuration
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   ├── asgi.py
+│   └── wsgi.py
+│
+├── apps/                          # All custom Django apps
+│   │
+│   ├── accounts/                  # Authentication + Admin panel
+│   │   ├── migrations/
+│   │   │   └── __init__.py
+│   │   ├── __init__.py
+│   │   ├── admin.py               # Django admin registration (optional)
+│   │   ├── apps.py
+│   │   ├── models.py              # Custom User model
+│   │   ├── forms.py               # Registration form
+│   │   ├── views.py               # Login, dashboards, admin panel views
+│   │   └── urls.py                # All auth + admin-panel URLs
+│   │
+│   ├── resources/                 # Study resources module
+│   │   ├── migrations/
+│   │   │   └── __init__.py
+│   │   ├── __init__.py
+│   │   ├── admin.py               # (Optional) Django admin
+│   │   ├── apps.py
+│   │   ├── models.py              # Resource model
+│   │   ├── views.py               # Student resource view
+│   │   └── urls.py                # Resource URLs
+│
+├── templates/                     # Global templates
+│   │
+│   ├── base.html                  # Common navbar layout
+│   │
+│   ├── accounts/                  # Login & registration
+│   │   ├── login.html
+│   │   └── register.html
+│   │
+│   ├── student/                   # Student pages
+│   │   ├── dashboard.html
+│   │   └── resources.html
+│   │
+│   └── admin_panel/               # Custom admin panel UI
+│       ├── base.html              # Sidebar layout
+│       ├── dashboard.html
+│       ├── upload_resource.html
+│       └── view_resources.html
+│
+├── static/                        # Static files
+│   ├── css/
+│   │   └── style.css              # (optional global styles)
+│   ├── js/
+│   │   └── animations.js          # (optional animations)
+│   └── images/
+│       └── logo.png
+│
+├── media/                         # Uploaded files
+│   └── resources/                # PDFs uploaded by admin
+│
+└── requirements.txt               # (optional) pip freeze output

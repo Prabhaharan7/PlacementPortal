@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Placement Preparation Portal{% endblock %}</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: "Segoe UI", sans-serif;
+            background: #f4f6f8;
+        }
+
+        /* Top Navbar */
+        .navbar {
+            background: #1e293b;
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h2 {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: 500;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+        /* Main Content */
+        .content {
+            padding: 30px;
+        }
+    </style>
+
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+<div class="navbar">
+    <h2>Placement Portal</h2>
+    <div>
+        {% if user.is_authenticated %}
+            {% if user.role == 'admin' %}
+                <a href="/admin-panel/">Admin Panel</a>
+            {% else %}
+                <a href="/student/dashboard/">Dashboard</a>
+                <a href="/resources/">Resources</a>
+            {% endif %}
+            <a href="/logout/">Logout</a>
+        {% else %}
+            <a href="/login/">Login</a>
+            <a href="/register/">Register</a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="content">
+    {% block content %}{% endblock %}
+</div>
+
+{% block extra_js %}{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Panel</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: "Segoe UI", sans-serif;
+            background: #f4f6f8;
+        }
+        .sidebar {
+            width: 220px;
+            height: 100vh;
+            background: #1e293b;
+            position: fixed;
+            color: white;
+        }
+        .sidebar h2 {
+            text-align: center;
+            padding: 20px;
+        }
+        .sidebar a {
+            display: block;
+            padding: 15px 20px;
+            color: white;
+            text-decoration: none;
+        }
+        .sidebar a:hover {
+            background: #334155;
+        }
+        .content {
+            margin-left: 220px;
+            padding: 30px;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>Admin</h2>
+    <a href="/admin-panel/">Dashboard</a>
+    <a href="/admin-panel/upload/">Upload Resource</a>
+    <a href="/admin-panel/resources/">View Resources</a>
+    <a href="/logout/">Logout</a>
+</div>
+
+<div class="content">
+    {% block content %}{% endblock %}
+</div>
+
+</body>
+</html>
